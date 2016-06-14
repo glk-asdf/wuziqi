@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>五子棋</title>
+	<style type="text/css">
+	body{
+		background: url('46.jpg') no-repeat;
+	}
+	.asd{
+		position: absolute;
+		margin: auto;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border:1px solid #df4567;
+		background-color: #dfdf99;
+		background-image: url('1364553741_3407.jpg');
+		background-size: 100% 100%;
+	}
+	</style>
+	<script src="//cdn.bootcss.com/jquery/3.0.0/jquery.js"></script>
+</head>
+<body>
+	<canvas class="asd" width="600" height="600"></canvas>
+</body>
+<script type="text/javascript">
+	var canvas=document.querySelector('canvas')
+	var ctx=canvas.getContext('2d')
+	var convasS=600;
+	var row=15;
+	var rowW=convasS / row;
+	var a=rowW*0.5+0.5;
+	function r(s){
+		return Math.PI*s/180;
+	}
+	// 棋盘
+	ctx.beginPath()
+	for(var i=0;i<row;i++){
+	ctx.moveTo(a,a+i*rowW)
+	ctx.lineTo(a+rowW*(row-1),a+i*rowW)
+	}
+	for(var i=0;i<row;i++){
+	ctx.moveTo(a+i*rowW,a)
+	ctx.lineTo(a+i*rowW,a+rowW*(row-1))
+	}
+	ctx.stroke()
+	ctx.closePath()
+	ctx.beginPath()
+	ctx.arc(a+3*rowW,a+3*rowW,rowW*0.1,0,r(360))
+	ctx.moveTo(a+11*rowW,a+3*rowW)
+	ctx.arc(a+11*rowW,a+3*rowW,rowW*0.1,0,r(360))
+	ctx.moveTo(a+3*rowW,a+11*rowW)
+	ctx.arc(a+3*rowW,a+11*rowW,rowW*0.1,0,r(360))
+	ctx.moveTo(a+11*rowW,a+11*rowW)
+	ctx.arc(a+11*rowW,a+11*rowW,rowW*0.1,0,r(360))
+	ctx.moveTo(a+7*rowW,a+7*rowW)
+	ctx.arc(a+7*rowW,a+7*rowW,rowW*0.1,0,r(360))
+	ctx.fill()
+	ctx.closePath()
+	// 棋子
+	var asd=true;
+	$('.asd').on('click',function(e){
+		var x=Math.round((e.offsetX - a)/rowW);
+		var y=Math.round((e.offsetY - a)/rowW);
+		ctx.beginPath()
+		ctx.arc(a+x*rowW,a+y*rowW,0.45*rowW,0,r(360))
+		if (asd) {
+			ctx.fillStyle="#000"
+			asd=!asd
+		}else{
+			ctx.fillStyle="#fff"
+			asd=!asd
+		}
+		ctx.fill()
+		ctx.closePath()
+		// console.log(x,y)
+	})
+
+</script>
+</html>
